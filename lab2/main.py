@@ -11,27 +11,6 @@ s = requests.get(
 df = pd.read_csv(io.StringIO(s.decode('utf-8')), index_col='zvit_date')
 del s
 print('Data downloaded')
-# df_gr = df.groupby(['registration_area']).agg('sum')  # new_susp  new_confirm  active_confirm  new_death  new_recover
-# ls = df_gr['active_confirm']
-# mx = ls.max()
-
-# pd.set_option("display.max_rows", None, "display.max_columns", None)
-# new_susp  new_confirm  active_confirm  new_death  new_recover
-
-# graph = Graphic(df_reg_date_grouped.index, df_reg_date_grouped['new_susp'])
-# graph.set_plot_size(20, 10)
-# graph.show_graphic('line', xlabel='date', ylabel='new suspects', show_xlabels=False)
-#
-# graph = Graphic([
-#     {'x': df_reg_date_grouped.index.tolist(), 'y': df_reg_date_grouped['new_susp'].tolist(), 'label': 'new_susp'},
-#     {'x': df_reg_date_grouped.index.tolist(), 'y': df_reg_date_grouped['new_confirm'].tolist(), 'label': 'new_confirm'},
-#     {'x': df_reg_date_grouped.index.tolist(), 'y': df_reg_date_grouped['active_confirm'].tolist(),
-#      'label': 'active_confirm'},
-#     {'x': df_reg_date_grouped.index.tolist(), 'y': df_reg_date_grouped['new_death'].tolist(), 'label': 'new_death'},
-#     {'x': df_reg_date_grouped.index.tolist(), 'y': df_reg_date_grouped['new_recover'].tolist(), 'label': 'new_recover'},
-# ])
-# # graph.set_plot_size(20, 10)
-# graph.show_graphic('line', plots=5, show_xlabels=False)
 
 answer = None
 while answer != 0:
@@ -53,7 +32,8 @@ while answer != 0:
             {'x': df_reg_date_grouped.index.tolist(), 'y': df_reg_date_grouped['new_recover'].tolist(),
              'label': 'new_recover'},
         ])
-        graph.show_graphic('line', plots=5, show_xlabels=False)
+        graph.show_graphic('line', plots=5, show_xlabels=False,
+                           title=f'{df_reg_date_grouped.index[0]} — {df_reg_date_grouped.tail(1).index[0]}')
     elif answer == 2:
         reg = input('Введіть області(через кому): ')
         regs = reg.split(',')
